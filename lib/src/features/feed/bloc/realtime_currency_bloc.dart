@@ -39,6 +39,11 @@ class RealtimeCurrencyState with _$RealtimeCurrencyState {
         failure: (e) => e.currencyName,
       );
 
+  bool get initial => maybeMap<bool>(
+        orElse: () => false,
+        initial: (e) => true,
+      );
+
   const factory RealtimeCurrencyState.initial() = _InitialCurrencyState;
 
   const factory RealtimeCurrencyState.inProgress({

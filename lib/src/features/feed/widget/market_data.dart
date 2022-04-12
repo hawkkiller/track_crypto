@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:decimal/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ class MarketData extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RealtimeCurrencyBloc, RealtimeCurrencyState>(
       builder: (context, state) {
+        final formatter = NumberFormat.currency(locale: 'en_US', name: '');
         if (state.loaded) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +47,7 @@ class MarketData extends StatelessWidget {
                         children: [
                           const Text('Price'),
                           Text(
-                            state.currency!.askPrice.toString(),
+                            formatter.format(DecimalIntl(state.currency!.askPrice)),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -81,6 +83,16 @@ class MarketData extends StatelessWidget {
                   .isIOS // show cupertino indicator on iOS and circular on other platforms
               ? const CupertinoActivityIndicator()
               : const CircularProgressIndicator();
+        }
+
+        if (state.initial) {
+          return Text(
+            'Hello! Try to search some currency data 😀',
+            style: DefaultTextStyle.of(context).style.copyWith(
+                  fontSize: 24,
+                ),
+            textAlign: TextAlign.center,
+          );
         }
         return const SizedBox.shrink();
       },

@@ -23,8 +23,11 @@ class _$CurrencyTearOff {
   const _$CurrencyTearOff();
 
   _Currency call(
-      {@JsonKey(name: 'ask_price') required double askPrice,
-      @JsonKey(name: 'time_coinapi') required DateTime time}) {
+      {@DecimalConverter()
+      @JsonKey(name: 'ask_price')
+          required Decimal askPrice,
+      @JsonKey(name: 'time_coinapi')
+          required DateTime time}) {
     return _Currency(
       askPrice: askPrice,
       time: time,
@@ -41,8 +44,9 @@ const $Currency = _$CurrencyTearOff();
 
 /// @nodoc
 mixin _$Currency {
+  @DecimalConverter()
   @JsonKey(name: 'ask_price')
-  double get askPrice => throw _privateConstructorUsedError;
+  Decimal get askPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'time_coinapi')
   DateTime get time => throw _privateConstructorUsedError;
 
@@ -57,7 +61,7 @@ abstract class $CurrencyCopyWith<$Res> {
   factory $CurrencyCopyWith(Currency value, $Res Function(Currency) then) =
       _$CurrencyCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'ask_price') double askPrice,
+      {@DecimalConverter() @JsonKey(name: 'ask_price') Decimal askPrice,
       @JsonKey(name: 'time_coinapi') DateTime time});
 }
 
@@ -78,7 +82,7 @@ class _$CurrencyCopyWithImpl<$Res> implements $CurrencyCopyWith<$Res> {
       askPrice: askPrice == freezed
           ? _value.askPrice
           : askPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as Decimal,
       time: time == freezed
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -93,7 +97,7 @@ abstract class _$CurrencyCopyWith<$Res> implements $CurrencyCopyWith<$Res> {
       __$CurrencyCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'ask_price') double askPrice,
+      {@DecimalConverter() @JsonKey(name: 'ask_price') Decimal askPrice,
       @JsonKey(name: 'time_coinapi') DateTime time});
 }
 
@@ -115,7 +119,7 @@ class __$CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
       askPrice: askPrice == freezed
           ? _value.askPrice
           : askPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as Decimal,
       time: time == freezed
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -128,7 +132,7 @@ class __$CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Currency extends _Currency {
   const _$_Currency(
-      {@JsonKey(name: 'ask_price') required this.askPrice,
+      {@DecimalConverter() @JsonKey(name: 'ask_price') required this.askPrice,
       @JsonKey(name: 'time_coinapi') required this.time})
       : super._();
 
@@ -136,8 +140,9 @@ class _$_Currency extends _Currency {
       _$$_CurrencyFromJson(json);
 
   @override
+  @DecimalConverter()
   @JsonKey(name: 'ask_price')
-  final double askPrice;
+  final Decimal askPrice;
   @override
   @JsonKey(name: 'time_coinapi')
   final DateTime time;
@@ -175,15 +180,19 @@ class _$_Currency extends _Currency {
 
 abstract class _Currency extends Currency {
   const factory _Currency(
-      {@JsonKey(name: 'ask_price') required double askPrice,
-      @JsonKey(name: 'time_coinapi') required DateTime time}) = _$_Currency;
+      {@DecimalConverter()
+      @JsonKey(name: 'ask_price')
+          required Decimal askPrice,
+      @JsonKey(name: 'time_coinapi')
+          required DateTime time}) = _$_Currency;
   const _Currency._() : super._();
 
   factory _Currency.fromJson(Map<String, dynamic> json) = _$_Currency.fromJson;
 
   @override
+  @DecimalConverter()
   @JsonKey(name: 'ask_price')
-  double get askPrice;
+  Decimal get askPrice;
   @override
   @JsonKey(name: 'time_coinapi')
   DateTime get time;

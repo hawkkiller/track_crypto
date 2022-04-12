@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recruitment_task/src/features/feed/bloc/realtime_currency_bloc.dart';
+import 'package:recruitment_task/src/features/feed/data/feed_charts_datasource.dart';
 import 'package:recruitment_task/src/features/feed/data/feed_repository.dart';
-import 'package:recruitment_task/src/features/feed/data/feed_websocket_datasource.dart';
+import 'package:recruitment_task/src/features/feed/data/feed_realtime_datasource.dart';
 import 'package:recruitment_task/src/features/feed/widget/market_data.dart';
 import 'package:recruitment_task/src/features/feed/widget/subscribe_currency.dart';
 
@@ -19,6 +21,8 @@ class _FeedScreenState extends State<FeedScreen> {
     return BlocProvider(
       create: (context) => RealtimeCurrencyBloc(
         feedRepository: FeedRepository(
+          // better to lift the dio down using inhw
+          feedChartsDatasource: FeedChartsDatasource(dio: Dio()),
           websocketsDatasource: FeedWebsocketsDatasource(),
         ),
       ),
