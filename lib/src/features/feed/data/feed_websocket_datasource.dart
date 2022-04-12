@@ -6,25 +6,25 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 abstract class IFeedWebsocketsDatasource {
   const IFeedWebsocketsDatasource();
 
-  Stream<dynamic> hello(ClientHelloMessage msg);
+  Stream<Object> hello(ClientHelloMessage msg);
 
   abstract final WebSocketChannel _channel;
 }
 
 class FeedWebsocketsDatasource implements IFeedWebsocketsDatasource {
   FeedWebsocketsDatasource() : _channel = _connect() {
-    _stream = _channel.stream.asBroadcastStream();
+    _stream = _channel.stream.asBroadcastStream().cast();
   }
 
   @override
   final WebSocketChannel _channel;
 
-  Stream<dynamic> get stream => _stream;
+  Stream<Object> get stream => _stream;
 
-  late final Stream<dynamic> _stream;
+  late final Stream<Object> _stream;
 
   @override
-  Stream<dynamic> hello(ClientHelloMessage msg) async* {
+  Stream<Object> hello(ClientHelloMessage msg) async* {
     _channel.sink.add(
       jsonEncode(msg.toJson()),
     );

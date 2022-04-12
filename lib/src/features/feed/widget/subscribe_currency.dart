@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recruitment_task/src/features/feed/data/feed_repository.dart';
-import 'package:recruitment_task/src/features/feed/data/feed_websocket_datasource.dart';
 
 class SubscribeWallet extends StatefulWidget {
   const SubscribeWallet({Key? key}) : super(key: key);
@@ -10,9 +8,6 @@ class SubscribeWallet extends StatefulWidget {
 }
 
 class _SubscribeWalletState extends State<SubscribeWallet> {
-  final repository = FeedRepository(
-    websocketsDatasource: FeedWebsocketsDatasource(),
-  );
 
   @override
   Widget build(BuildContext context) {

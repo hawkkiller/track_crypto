@@ -21,5 +21,5 @@ class FeedRepository implements IFeedRepository {
   @override
   Stream<Currency> hello(ClientHelloMessage msg) => _websocketsDatasource
       .hello(msg)
-      .map<Currency>((dynamic event) => Currency.fromJson(jsonDecode(event.toString()) as Map<String, dynamic>));
+      .map<Currency>((event) => Currency.fromJson(jsonDecode(event.toString()) as Map<String, dynamic>));
 }
