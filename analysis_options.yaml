@@ -26,12 +26,14 @@ analyzer:
     - "build/**"
     # Assets
     - "assets/**"
-
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
 
   errors:
+    # Ignore
+    invalid_annotation_target: ignore
+
     # Info
     todo: info
     directives_ordering: info

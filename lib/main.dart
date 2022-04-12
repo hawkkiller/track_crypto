@@ -13,8 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: FeedScreen(),
+    return MaterialApp(
+      home: const FeedScreen(),
+      builder: (ctx, widget) {
+        return GestureDetector(
+          onTap: () {
+            if (FocusScope.of(context).hasFocus) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          },
+          behavior: HitTestBehavior.opaque,
+          child: widget,
+        );
+      },
     );
   }
 }

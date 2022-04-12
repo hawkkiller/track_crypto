@@ -1,0 +1,30 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/**
+    builders:
+      json_serializable:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**
+        options:
+          any_map: false
+          checked: false
+          create_factory: true
+          create_to_json: true
+          disallow_unrecognized_keys: false
+          explicit_to_json: true
+          field_rename: none
+          ignore_unannotated: false
+          include_if_null: true
+          #nullable: true
+      freezed:
+        enabled: true
+        options:
+          union_key: type
+          union_value_case: snake
+        generate_for:
+          include:
+            - lib/**
