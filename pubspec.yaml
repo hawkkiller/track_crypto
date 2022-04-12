@@ -39,6 +39,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   json_annotation: ^4.4.0
   decimal: ^2.1.0
+  intl: ^0.17.0
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   flutter_test:

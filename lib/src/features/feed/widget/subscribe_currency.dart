@@ -1,41 +1,63 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recruitment_task/src/features/feed/bloc/realtime_currency_bloc.dart';
 
-class SubscribeWallet extends StatefulWidget {
-  const SubscribeWallet({Key? key}) : super(key: key);
+class SubscribeCurrency extends StatefulWidget {
+  const SubscribeCurrency({Key? key}) : super(key: key);
 
   @override
-  State<SubscribeWallet> createState() => _SubscribeWalletState();
+  State<SubscribeCurrency> createState() => _SubscribeCurrencyState();
 }
 
-class _SubscribeWalletState extends State<SubscribeWallet> {
+class _SubscribeCurrencyState extends State<SubscribeCurrency> {
+  @override
+  void initState() {
+    _controller = TextEditingController(text: 'BTC/USD');
+    super.initState();
+  }
+
+  late final TextEditingController _controller;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Flexible(
+        Flexible(
           child: TextField(
-            decoration: InputDecoration(
+            controller: _controller,
+            decoration: const InputDecoration(
               hintText: 'Currency to observe',
             ),
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'SF PRO ROUNDED',
               fontSize: 20,
             ),
           ),
         ),
-        TextButton(
-          onPressed: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: const Text(
-            'Subscribe',
-            style: TextStyle(
-              fontFamily: 'SF PRO ROUNDED',
-              fontSize: 18,
-            ),
-          ),
-        ),
+        ValueListenableBuilder<TextEditingValue>(
+            valueListenable: _controller,
+            builder: (context, value, widget) {
+              return CupertinoButton(
+                onPressed: value.text.isNotEmpty
+                    ? () {
+                        FocusScope.of(context).unfocus();
+                        context.read<RealtimeCurrencyBloc>().add(
+                              RealtimeCurrencyEvent.subscribe(
+                                currencyName: _controller.value.text,
+                              ),
+                            );
+                      }
+                    : null,
+                child: const Text(
+                  'Subscribe',
+                  style: TextStyle(
+                    fontFamily: 'SF PRO ROUNDED',
+                    fontSize: 18,
+                  ),
+                ),
+              );
+            }),
       ],
     );
   }

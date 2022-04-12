@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recruitment_task/src/features/feed/bloc/realtime_currency_bloc.dart';
 import 'package:recruitment_task/src/features/feed/data/feed_repository.dart';
 import 'package:recruitment_task/src/features/feed/data/feed_websocket_datasource.dart';
+import 'package:recruitment_task/src/features/feed/widget/market_data.dart';
 import 'package:recruitment_task/src/features/feed/widget/subscribe_currency.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -13,16 +16,26 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
-    FeedWebsocketsDatasource();
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: const [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: SubscribeWallet(),
-            ),
-          ],
+    return BlocProvider(
+      create: (context) => RealtimeCurrencyBloc(
+        feedRepository: FeedRepository(
+          websocketsDatasource: FeedWebsocketsDatasource(),
+        ),
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: const [
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: SubscribeCurrency(),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: MarketData(),
+              ),
+            ],
+          ),
         ),
       ),
     );

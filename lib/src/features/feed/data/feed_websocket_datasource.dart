@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:recruitment_task/src/features/feed/model/hello/client_hello_message.dart';
@@ -28,12 +29,12 @@ class FeedWebsocketsDatasource implements IFeedWebsocketsDatasource {
     _channel.sink.add(
       jsonEncode(msg.toJson()),
     );
-    yield* stream;
+    yield* _stream;
   }
 
   static WebSocketChannel _connect() => WebSocketChannel.connect(
         Uri.parse(
-          'wss://ws-sandbox.coinapi.io/v1/',
+          'ws://ws-sandbox.coinapi.io/v1/',
         ),
       );
 }
