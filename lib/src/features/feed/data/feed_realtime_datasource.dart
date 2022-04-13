@@ -17,7 +17,7 @@ class FeedWebsocketsDatasource implements IFeedWebsocketsDatasource {
     );
   }
 
-  WebSocketChannel _channel;
+  final WebSocketChannel _channel;
 
   late final Stream<Object> _stream;
 
