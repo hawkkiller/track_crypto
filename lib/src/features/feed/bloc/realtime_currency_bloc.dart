@@ -1,9 +1,14 @@
+import 'dart:async';
 import 'dart:developer';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recruitment_task/main.dart';
 import 'package:recruitment_task/src/features/feed/data/feed_repository.dart';
 import 'package:recruitment_task/src/features/feed/model/currency/currency.dart';
+import 'package:recruitment_task/src/features/feed/model/error/network_error.dart';
 import 'package:recruitment_task/src/features/feed/model/hello/client_hello_message.dart';
 
 part 'realtime_currency_bloc.freezed.dart';
@@ -32,6 +37,16 @@ class RealtimeCurrencyState with _$RealtimeCurrencyState {
         connected: (e) => true,
       );
 
+  bool get failure => maybeMap<bool>(
+        orElse: () => false,
+        failure: (e) => true,
+      );
+
+  AppError? get errorMessage => maybeMap(
+        orElse: () => null,
+        failure: (e) => e.error,
+      );
+
   String get currencyName => maybeMap<String>(
         orElse: () => '',
         connected: (e) => e.currencyName,
@@ -48,16 +63,17 @@ class RealtimeCurrencyState with _$RealtimeCurrencyState {
 
   const factory RealtimeCurrencyState.inProgress({
     required String currencyName,
-  }) = _InProgressCurrencyState;
+  }) = _InProgressRealtimeCurrencyState;
 
   const factory RealtimeCurrencyState.connected({
     required Currency currency,
     required String currencyName,
-  }) = _ConnectedCurrencyState;
+  }) = _ConnectedRealtimeCurrencyState;
 
   const factory RealtimeCurrencyState.failure({
     required String currencyName,
-  }) = _FailureCurrencyState;
+    required AppError error,
+  }) = _FailureRealtimeCurrencyState;
 }
 
 @freezed
@@ -66,7 +82,7 @@ class RealtimeCurrencyEvent with _$RealtimeCurrencyEvent {
 
   const factory RealtimeCurrencyEvent.subscribe({
     required String currencyName,
-  }) = _RealtimeCurrencySubscribeEvent;
+  }) = _SubscribeRealtimeCurrencyEvent;
 }
 
 class RealtimeCurrencyBloc
@@ -75,37 +91,60 @@ class RealtimeCurrencyBloc
     required IFeedRepository feedRepository,
   })  : _feedRepository = feedRepository,
         super(const _InitialCurrencyState()) {
-    on<_RealtimeCurrencySubscribeEvent>(_subscribe);
+    on<_SubscribeRealtimeCurrencyEvent>(
+      _subscribe,
+      transformer: restartable(),
+    );
   }
 
   final IFeedRepository _feedRepository;
+  int _retries = 0;
 
   Future<void> _subscribe(
-    _RealtimeCurrencySubscribeEvent event,
+    _SubscribeRealtimeCurrencyEvent event,
     Emitter<RealtimeCurrencyState> emitter,
   ) async {
     try {
+      _retries = 0;
       final msg = ClientHelloMessage(
         subscribeDataType: ['quote'],
         subscribeFilterAssetId: [event.currencyName],
+        apiKey: apiKey,
       );
       emitter.call(
-        _InProgressCurrencyState(currencyName: event.currencyName),
+        _InProgressRealtimeCurrencyState(currencyName: event.currencyName),
       );
       final stream = _feedRepository.hello(msg).asBroadcastStream();
       await emitter.forEach<Currency>(
         stream,
         onData: (data) {
-          return _ConnectedCurrencyState(
+          return _ConnectedRealtimeCurrencyState(
             currency: data,
             currencyName: event.currencyName,
           );
         },
       );
+    } on TimeoutException catch (e) {
+      emitter.call(
+        _FailureRealtimeCurrencyState(
+          currencyName: event.currencyName,
+          error: AppError.timeout,
+        ),
+      );
+      if (_retries < 3) {
+        _retries++;
+        await Future<void>.delayed(const Duration(seconds: 2));
+        add(
+          _SubscribeRealtimeCurrencyEvent(currencyName: event.currencyName),
+        );
+      }
     } on Object catch (e) {
       log(e.toString());
       emitter.call(
-        _FailureCurrencyState(currencyName: event.currencyName),
+        _FailureRealtimeCurrencyState(
+          currencyName: event.currencyName,
+          error: AppError.unknown,
+        ),
       );
     }
   }

@@ -14,7 +14,7 @@ class ClientHelloMessage with _$ClientHelloMessage {
     @JsonKey(name: 'subscribe_filter_asset_id')
         required List<String> subscribeFilterAssetId,
     @JsonKey(name: 'apikey')
-    @Default('C61848AC-4716-4042-B869-58197CD670C3')
+    @Default('010F31F2-AFDF-4BC8-8864-AA698C30E761')
         String apiKey,
     @Default(false) bool heartbeat,
     @Default('hello') String type,

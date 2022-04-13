@@ -22,23 +22,25 @@ class _$RealtimeCurrencyStateTearOff {
     return const _InitialCurrencyState();
   }
 
-  _InProgressCurrencyState inProgress({required String currencyName}) {
-    return _InProgressCurrencyState(
+  _InProgressRealtimeCurrencyState inProgress({required String currencyName}) {
+    return _InProgressRealtimeCurrencyState(
       currencyName: currencyName,
     );
   }
 
-  _ConnectedCurrencyState connected(
+  _ConnectedRealtimeCurrencyState connected(
       {required Currency currency, required String currencyName}) {
-    return _ConnectedCurrencyState(
+    return _ConnectedRealtimeCurrencyState(
       currency: currency,
       currencyName: currencyName,
     );
   }
 
-  _FailureCurrencyState failure({required String currencyName}) {
-    return _FailureCurrencyState(
+  _FailureRealtimeCurrencyState failure(
+      {required String currencyName, required AppError error}) {
+    return _FailureRealtimeCurrencyState(
       currencyName: currencyName,
+      error: error,
     );
   }
 }
@@ -53,7 +55,7 @@ mixin _$RealtimeCurrencyState {
     required TResult Function() initial,
     required TResult Function(String currencyName) inProgress,
     required TResult Function(Currency currency, String currencyName) connected,
-    required TResult Function(String currencyName) failure,
+    required TResult Function(String currencyName, AppError error) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,7 +63,7 @@ mixin _$RealtimeCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,32 +71,33 @@ mixin _$RealtimeCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCurrencyState value) initial,
-    required TResult Function(_InProgressCurrencyState value) inProgress,
-    required TResult Function(_ConnectedCurrencyState value) connected,
-    required TResult Function(_FailureCurrencyState value) failure,
+    required TResult Function(_InProgressRealtimeCurrencyState value)
+        inProgress,
+    required TResult Function(_ConnectedRealtimeCurrencyState value) connected,
+    required TResult Function(_FailureRealtimeCurrencyState value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,7 +164,7 @@ class _$_InitialCurrencyState extends _InitialCurrencyState {
     required TResult Function() initial,
     required TResult Function(String currencyName) inProgress,
     required TResult Function(Currency currency, String currencyName) connected,
-    required TResult Function(String currencyName) failure,
+    required TResult Function(String currencyName, AppError error) failure,
   }) {
     return initial();
   }
@@ -172,7 +175,7 @@ class _$_InitialCurrencyState extends _InitialCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
   }) {
     return initial?.call();
   }
@@ -183,7 +186,7 @@ class _$_InitialCurrencyState extends _InitialCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -196,9 +199,10 @@ class _$_InitialCurrencyState extends _InitialCurrencyState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCurrencyState value) initial,
-    required TResult Function(_InProgressCurrencyState value) inProgress,
-    required TResult Function(_ConnectedCurrencyState value) connected,
-    required TResult Function(_FailureCurrencyState value) failure,
+    required TResult Function(_InProgressRealtimeCurrencyState value)
+        inProgress,
+    required TResult Function(_ConnectedRealtimeCurrencyState value) connected,
+    required TResult Function(_FailureRealtimeCurrencyState value) failure,
   }) {
     return initial(this);
   }
@@ -207,9 +211,9 @@ class _$_InitialCurrencyState extends _InitialCurrencyState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
   }) {
     return initial?.call(this);
   }
@@ -218,9 +222,9 @@ class _$_InitialCurrencyState extends _InitialCurrencyState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -236,30 +240,32 @@ abstract class _InitialCurrencyState extends RealtimeCurrencyState {
 }
 
 /// @nodoc
-abstract class _$InProgressCurrencyStateCopyWith<$Res> {
-  factory _$InProgressCurrencyStateCopyWith(_InProgressCurrencyState value,
-          $Res Function(_InProgressCurrencyState) then) =
-      __$InProgressCurrencyStateCopyWithImpl<$Res>;
+abstract class _$InProgressRealtimeCurrencyStateCopyWith<$Res> {
+  factory _$InProgressRealtimeCurrencyStateCopyWith(
+          _InProgressRealtimeCurrencyState value,
+          $Res Function(_InProgressRealtimeCurrencyState) then) =
+      __$InProgressRealtimeCurrencyStateCopyWithImpl<$Res>;
   $Res call({String currencyName});
 }
 
 /// @nodoc
-class __$InProgressCurrencyStateCopyWithImpl<$Res>
+class __$InProgressRealtimeCurrencyStateCopyWithImpl<$Res>
     extends _$RealtimeCurrencyStateCopyWithImpl<$Res>
-    implements _$InProgressCurrencyStateCopyWith<$Res> {
-  __$InProgressCurrencyStateCopyWithImpl(_InProgressCurrencyState _value,
-      $Res Function(_InProgressCurrencyState) _then)
-      : super(_value, (v) => _then(v as _InProgressCurrencyState));
+    implements _$InProgressRealtimeCurrencyStateCopyWith<$Res> {
+  __$InProgressRealtimeCurrencyStateCopyWithImpl(
+      _InProgressRealtimeCurrencyState _value,
+      $Res Function(_InProgressRealtimeCurrencyState) _then)
+      : super(_value, (v) => _then(v as _InProgressRealtimeCurrencyState));
 
   @override
-  _InProgressCurrencyState get _value =>
-      super._value as _InProgressCurrencyState;
+  _InProgressRealtimeCurrencyState get _value =>
+      super._value as _InProgressRealtimeCurrencyState;
 
   @override
   $Res call({
     Object? currencyName = freezed,
   }) {
-    return _then(_InProgressCurrencyState(
+    return _then(_InProgressRealtimeCurrencyState(
       currencyName: currencyName == freezed
           ? _value.currencyName
           : currencyName // ignore: cast_nullable_to_non_nullable
@@ -270,8 +276,10 @@ class __$InProgressCurrencyStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_InProgressCurrencyState extends _InProgressCurrencyState {
-  const _$_InProgressCurrencyState({required this.currencyName}) : super._();
+class _$_InProgressRealtimeCurrencyState
+    extends _InProgressRealtimeCurrencyState {
+  const _$_InProgressRealtimeCurrencyState({required this.currencyName})
+      : super._();
 
   @override
   final String currencyName;
@@ -285,7 +293,7 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _InProgressCurrencyState &&
+            other is _InProgressRealtimeCurrencyState &&
             const DeepCollectionEquality()
                 .equals(other.currencyName, currencyName));
   }
@@ -296,9 +304,9 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
 
   @JsonKey(ignore: true)
   @override
-  _$InProgressCurrencyStateCopyWith<_InProgressCurrencyState> get copyWith =>
-      __$InProgressCurrencyStateCopyWithImpl<_InProgressCurrencyState>(
-          this, _$identity);
+  _$InProgressRealtimeCurrencyStateCopyWith<_InProgressRealtimeCurrencyState>
+      get copyWith => __$InProgressRealtimeCurrencyStateCopyWithImpl<
+          _InProgressRealtimeCurrencyState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -306,7 +314,7 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
     required TResult Function() initial,
     required TResult Function(String currencyName) inProgress,
     required TResult Function(Currency currency, String currencyName) connected,
-    required TResult Function(String currencyName) failure,
+    required TResult Function(String currencyName, AppError error) failure,
   }) {
     return inProgress(currencyName);
   }
@@ -317,7 +325,7 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
   }) {
     return inProgress?.call(currencyName);
   }
@@ -328,7 +336,7 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -341,9 +349,10 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCurrencyState value) initial,
-    required TResult Function(_InProgressCurrencyState value) inProgress,
-    required TResult Function(_ConnectedCurrencyState value) connected,
-    required TResult Function(_FailureCurrencyState value) failure,
+    required TResult Function(_InProgressRealtimeCurrencyState value)
+        inProgress,
+    required TResult Function(_ConnectedRealtimeCurrencyState value) connected,
+    required TResult Function(_FailureRealtimeCurrencyState value) failure,
   }) {
     return inProgress(this);
   }
@@ -352,9 +361,9 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
   }) {
     return inProgress?.call(this);
   }
@@ -363,9 +372,9 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -375,44 +384,47 @@ class _$_InProgressCurrencyState extends _InProgressCurrencyState {
   }
 }
 
-abstract class _InProgressCurrencyState extends RealtimeCurrencyState {
-  const factory _InProgressCurrencyState({required String currencyName}) =
-      _$_InProgressCurrencyState;
-  const _InProgressCurrencyState._() : super._();
+abstract class _InProgressRealtimeCurrencyState extends RealtimeCurrencyState {
+  const factory _InProgressRealtimeCurrencyState(
+      {required String currencyName}) = _$_InProgressRealtimeCurrencyState;
+  const _InProgressRealtimeCurrencyState._() : super._();
 
   String get currencyName;
   @JsonKey(ignore: true)
-  _$InProgressCurrencyStateCopyWith<_InProgressCurrencyState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$InProgressRealtimeCurrencyStateCopyWith<_InProgressRealtimeCurrencyState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$ConnectedCurrencyStateCopyWith<$Res> {
-  factory _$ConnectedCurrencyStateCopyWith(_ConnectedCurrencyState value,
-          $Res Function(_ConnectedCurrencyState) then) =
-      __$ConnectedCurrencyStateCopyWithImpl<$Res>;
+abstract class _$ConnectedRealtimeCurrencyStateCopyWith<$Res> {
+  factory _$ConnectedRealtimeCurrencyStateCopyWith(
+          _ConnectedRealtimeCurrencyState value,
+          $Res Function(_ConnectedRealtimeCurrencyState) then) =
+      __$ConnectedRealtimeCurrencyStateCopyWithImpl<$Res>;
   $Res call({Currency currency, String currencyName});
 
   $CurrencyCopyWith<$Res> get currency;
 }
 
 /// @nodoc
-class __$ConnectedCurrencyStateCopyWithImpl<$Res>
+class __$ConnectedRealtimeCurrencyStateCopyWithImpl<$Res>
     extends _$RealtimeCurrencyStateCopyWithImpl<$Res>
-    implements _$ConnectedCurrencyStateCopyWith<$Res> {
-  __$ConnectedCurrencyStateCopyWithImpl(_ConnectedCurrencyState _value,
-      $Res Function(_ConnectedCurrencyState) _then)
-      : super(_value, (v) => _then(v as _ConnectedCurrencyState));
+    implements _$ConnectedRealtimeCurrencyStateCopyWith<$Res> {
+  __$ConnectedRealtimeCurrencyStateCopyWithImpl(
+      _ConnectedRealtimeCurrencyState _value,
+      $Res Function(_ConnectedRealtimeCurrencyState) _then)
+      : super(_value, (v) => _then(v as _ConnectedRealtimeCurrencyState));
 
   @override
-  _ConnectedCurrencyState get _value => super._value as _ConnectedCurrencyState;
+  _ConnectedRealtimeCurrencyState get _value =>
+      super._value as _ConnectedRealtimeCurrencyState;
 
   @override
   $Res call({
     Object? currency = freezed,
     Object? currencyName = freezed,
   }) {
-    return _then(_ConnectedCurrencyState(
+    return _then(_ConnectedRealtimeCurrencyState(
       currency: currency == freezed
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -434,8 +446,9 @@ class __$ConnectedCurrencyStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
-  const _$_ConnectedCurrencyState(
+class _$_ConnectedRealtimeCurrencyState
+    extends _ConnectedRealtimeCurrencyState {
+  const _$_ConnectedRealtimeCurrencyState(
       {required this.currency, required this.currencyName})
       : super._();
 
@@ -453,7 +466,7 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ConnectedCurrencyState &&
+            other is _ConnectedRealtimeCurrencyState &&
             const DeepCollectionEquality().equals(other.currency, currency) &&
             const DeepCollectionEquality()
                 .equals(other.currencyName, currencyName));
@@ -467,9 +480,9 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
 
   @JsonKey(ignore: true)
   @override
-  _$ConnectedCurrencyStateCopyWith<_ConnectedCurrencyState> get copyWith =>
-      __$ConnectedCurrencyStateCopyWithImpl<_ConnectedCurrencyState>(
-          this, _$identity);
+  _$ConnectedRealtimeCurrencyStateCopyWith<_ConnectedRealtimeCurrencyState>
+      get copyWith => __$ConnectedRealtimeCurrencyStateCopyWithImpl<
+          _ConnectedRealtimeCurrencyState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -477,7 +490,7 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
     required TResult Function() initial,
     required TResult Function(String currencyName) inProgress,
     required TResult Function(Currency currency, String currencyName) connected,
-    required TResult Function(String currencyName) failure,
+    required TResult Function(String currencyName, AppError error) failure,
   }) {
     return connected(currency, currencyName);
   }
@@ -488,7 +501,7 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
   }) {
     return connected?.call(currency, currencyName);
   }
@@ -499,7 +512,7 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
     required TResult orElse(),
   }) {
     if (connected != null) {
@@ -512,9 +525,10 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCurrencyState value) initial,
-    required TResult Function(_InProgressCurrencyState value) inProgress,
-    required TResult Function(_ConnectedCurrencyState value) connected,
-    required TResult Function(_FailureCurrencyState value) failure,
+    required TResult Function(_InProgressRealtimeCurrencyState value)
+        inProgress,
+    required TResult Function(_ConnectedRealtimeCurrencyState value) connected,
+    required TResult Function(_FailureRealtimeCurrencyState value) failure,
   }) {
     return connected(this);
   }
@@ -523,9 +537,9 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
   }) {
     return connected?.call(this);
   }
@@ -534,9 +548,9 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
     required TResult orElse(),
   }) {
     if (connected != null) {
@@ -546,82 +560,97 @@ class _$_ConnectedCurrencyState extends _ConnectedCurrencyState {
   }
 }
 
-abstract class _ConnectedCurrencyState extends RealtimeCurrencyState {
-  const factory _ConnectedCurrencyState(
+abstract class _ConnectedRealtimeCurrencyState extends RealtimeCurrencyState {
+  const factory _ConnectedRealtimeCurrencyState(
       {required Currency currency,
-      required String currencyName}) = _$_ConnectedCurrencyState;
-  const _ConnectedCurrencyState._() : super._();
+      required String currencyName}) = _$_ConnectedRealtimeCurrencyState;
+  const _ConnectedRealtimeCurrencyState._() : super._();
 
   Currency get currency;
   String get currencyName;
   @JsonKey(ignore: true)
-  _$ConnectedCurrencyStateCopyWith<_ConnectedCurrencyState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$ConnectedRealtimeCurrencyStateCopyWith<_ConnectedRealtimeCurrencyState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$FailureCurrencyStateCopyWith<$Res> {
-  factory _$FailureCurrencyStateCopyWith(_FailureCurrencyState value,
-          $Res Function(_FailureCurrencyState) then) =
-      __$FailureCurrencyStateCopyWithImpl<$Res>;
-  $Res call({String currencyName});
+abstract class _$FailureRealtimeCurrencyStateCopyWith<$Res> {
+  factory _$FailureRealtimeCurrencyStateCopyWith(
+          _FailureRealtimeCurrencyState value,
+          $Res Function(_FailureRealtimeCurrencyState) then) =
+      __$FailureRealtimeCurrencyStateCopyWithImpl<$Res>;
+  $Res call({String currencyName, AppError error});
 }
 
 /// @nodoc
-class __$FailureCurrencyStateCopyWithImpl<$Res>
+class __$FailureRealtimeCurrencyStateCopyWithImpl<$Res>
     extends _$RealtimeCurrencyStateCopyWithImpl<$Res>
-    implements _$FailureCurrencyStateCopyWith<$Res> {
-  __$FailureCurrencyStateCopyWithImpl(
-      _FailureCurrencyState _value, $Res Function(_FailureCurrencyState) _then)
-      : super(_value, (v) => _then(v as _FailureCurrencyState));
+    implements _$FailureRealtimeCurrencyStateCopyWith<$Res> {
+  __$FailureRealtimeCurrencyStateCopyWithImpl(
+      _FailureRealtimeCurrencyState _value,
+      $Res Function(_FailureRealtimeCurrencyState) _then)
+      : super(_value, (v) => _then(v as _FailureRealtimeCurrencyState));
 
   @override
-  _FailureCurrencyState get _value => super._value as _FailureCurrencyState;
+  _FailureRealtimeCurrencyState get _value =>
+      super._value as _FailureRealtimeCurrencyState;
 
   @override
   $Res call({
     Object? currencyName = freezed,
+    Object? error = freezed,
   }) {
-    return _then(_FailureCurrencyState(
+    return _then(_FailureRealtimeCurrencyState(
       currencyName: currencyName == freezed
           ? _value.currencyName
           : currencyName // ignore: cast_nullable_to_non_nullable
               as String,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as AppError,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_FailureCurrencyState extends _FailureCurrencyState {
-  const _$_FailureCurrencyState({required this.currencyName}) : super._();
+class _$_FailureRealtimeCurrencyState extends _FailureRealtimeCurrencyState {
+  const _$_FailureRealtimeCurrencyState(
+      {required this.currencyName, required this.error})
+      : super._();
 
   @override
   final String currencyName;
+  @override
+  final AppError error;
 
   @override
   String toString() {
-    return 'RealtimeCurrencyState.failure(currencyName: $currencyName)';
+    return 'RealtimeCurrencyState.failure(currencyName: $currencyName, error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FailureCurrencyState &&
+            other is _FailureRealtimeCurrencyState &&
             const DeepCollectionEquality()
-                .equals(other.currencyName, currencyName));
+                .equals(other.currencyName, currencyName) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(currencyName));
+      runtimeType,
+      const DeepCollectionEquality().hash(currencyName),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
-  _$FailureCurrencyStateCopyWith<_FailureCurrencyState> get copyWith =>
-      __$FailureCurrencyStateCopyWithImpl<_FailureCurrencyState>(
-          this, _$identity);
+  _$FailureRealtimeCurrencyStateCopyWith<_FailureRealtimeCurrencyState>
+      get copyWith => __$FailureRealtimeCurrencyStateCopyWithImpl<
+          _FailureRealtimeCurrencyState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -629,9 +658,9 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
     required TResult Function() initial,
     required TResult Function(String currencyName) inProgress,
     required TResult Function(Currency currency, String currencyName) connected,
-    required TResult Function(String currencyName) failure,
+    required TResult Function(String currencyName, AppError error) failure,
   }) {
-    return failure(currencyName);
+    return failure(currencyName, error);
   }
 
   @override
@@ -640,9 +669,9 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
   }) {
-    return failure?.call(currencyName);
+    return failure?.call(currencyName, error);
   }
 
   @override
@@ -651,11 +680,11 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
     TResult Function()? initial,
     TResult Function(String currencyName)? inProgress,
     TResult Function(Currency currency, String currencyName)? connected,
-    TResult Function(String currencyName)? failure,
+    TResult Function(String currencyName, AppError error)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure(currencyName);
+      return failure(currencyName, error);
     }
     return orElse();
   }
@@ -664,9 +693,10 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCurrencyState value) initial,
-    required TResult Function(_InProgressCurrencyState value) inProgress,
-    required TResult Function(_ConnectedCurrencyState value) connected,
-    required TResult Function(_FailureCurrencyState value) failure,
+    required TResult Function(_InProgressRealtimeCurrencyState value)
+        inProgress,
+    required TResult Function(_ConnectedRealtimeCurrencyState value) connected,
+    required TResult Function(_FailureRealtimeCurrencyState value) failure,
   }) {
     return failure(this);
   }
@@ -675,9 +705,9 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -686,9 +716,9 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCurrencyState value)? initial,
-    TResult Function(_InProgressCurrencyState value)? inProgress,
-    TResult Function(_ConnectedCurrencyState value)? connected,
-    TResult Function(_FailureCurrencyState value)? failure,
+    TResult Function(_InProgressRealtimeCurrencyState value)? inProgress,
+    TResult Function(_ConnectedRealtimeCurrencyState value)? connected,
+    TResult Function(_FailureRealtimeCurrencyState value)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -698,23 +728,25 @@ class _$_FailureCurrencyState extends _FailureCurrencyState {
   }
 }
 
-abstract class _FailureCurrencyState extends RealtimeCurrencyState {
-  const factory _FailureCurrencyState({required String currencyName}) =
-      _$_FailureCurrencyState;
-  const _FailureCurrencyState._() : super._();
+abstract class _FailureRealtimeCurrencyState extends RealtimeCurrencyState {
+  const factory _FailureRealtimeCurrencyState(
+      {required String currencyName,
+      required AppError error}) = _$_FailureRealtimeCurrencyState;
+  const _FailureRealtimeCurrencyState._() : super._();
 
   String get currencyName;
+  AppError get error;
   @JsonKey(ignore: true)
-  _$FailureCurrencyStateCopyWith<_FailureCurrencyState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$FailureRealtimeCurrencyStateCopyWith<_FailureRealtimeCurrencyState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 class _$RealtimeCurrencyEventTearOff {
   const _$RealtimeCurrencyEventTearOff();
 
-  _RealtimeCurrencySubscribeEvent subscribe({required String currencyName}) {
-    return _RealtimeCurrencySubscribeEvent(
+  _SubscribeRealtimeCurrencyEvent subscribe({required String currencyName}) {
+    return _SubscribeRealtimeCurrencyEvent(
       currencyName: currencyName,
     );
   }
@@ -745,17 +777,17 @@ mixin _$RealtimeCurrencyEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RealtimeCurrencySubscribeEvent value) subscribe,
+    required TResult Function(_SubscribeRealtimeCurrencyEvent value) subscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_RealtimeCurrencySubscribeEvent value)? subscribe,
+    TResult Function(_SubscribeRealtimeCurrencyEvent value)? subscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RealtimeCurrencySubscribeEvent value)? subscribe,
+    TResult Function(_SubscribeRealtimeCurrencyEvent value)? subscribe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -796,34 +828,34 @@ class _$RealtimeCurrencyEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$RealtimeCurrencySubscribeEventCopyWith<$Res>
+abstract class _$SubscribeRealtimeCurrencyEventCopyWith<$Res>
     implements $RealtimeCurrencyEventCopyWith<$Res> {
-  factory _$RealtimeCurrencySubscribeEventCopyWith(
-          _RealtimeCurrencySubscribeEvent value,
-          $Res Function(_RealtimeCurrencySubscribeEvent) then) =
-      __$RealtimeCurrencySubscribeEventCopyWithImpl<$Res>;
+  factory _$SubscribeRealtimeCurrencyEventCopyWith(
+          _SubscribeRealtimeCurrencyEvent value,
+          $Res Function(_SubscribeRealtimeCurrencyEvent) then) =
+      __$SubscribeRealtimeCurrencyEventCopyWithImpl<$Res>;
   @override
   $Res call({String currencyName});
 }
 
 /// @nodoc
-class __$RealtimeCurrencySubscribeEventCopyWithImpl<$Res>
+class __$SubscribeRealtimeCurrencyEventCopyWithImpl<$Res>
     extends _$RealtimeCurrencyEventCopyWithImpl<$Res>
-    implements _$RealtimeCurrencySubscribeEventCopyWith<$Res> {
-  __$RealtimeCurrencySubscribeEventCopyWithImpl(
-      _RealtimeCurrencySubscribeEvent _value,
-      $Res Function(_RealtimeCurrencySubscribeEvent) _then)
-      : super(_value, (v) => _then(v as _RealtimeCurrencySubscribeEvent));
+    implements _$SubscribeRealtimeCurrencyEventCopyWith<$Res> {
+  __$SubscribeRealtimeCurrencyEventCopyWithImpl(
+      _SubscribeRealtimeCurrencyEvent _value,
+      $Res Function(_SubscribeRealtimeCurrencyEvent) _then)
+      : super(_value, (v) => _then(v as _SubscribeRealtimeCurrencyEvent));
 
   @override
-  _RealtimeCurrencySubscribeEvent get _value =>
-      super._value as _RealtimeCurrencySubscribeEvent;
+  _SubscribeRealtimeCurrencyEvent get _value =>
+      super._value as _SubscribeRealtimeCurrencyEvent;
 
   @override
   $Res call({
     Object? currencyName = freezed,
   }) {
-    return _then(_RealtimeCurrencySubscribeEvent(
+    return _then(_SubscribeRealtimeCurrencyEvent(
       currencyName: currencyName == freezed
           ? _value.currencyName
           : currencyName // ignore: cast_nullable_to_non_nullable
@@ -834,9 +866,9 @@ class __$RealtimeCurrencySubscribeEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RealtimeCurrencySubscribeEvent
-    extends _RealtimeCurrencySubscribeEvent {
-  const _$_RealtimeCurrencySubscribeEvent({required this.currencyName})
+class _$_SubscribeRealtimeCurrencyEvent
+    extends _SubscribeRealtimeCurrencyEvent {
+  const _$_SubscribeRealtimeCurrencyEvent({required this.currencyName})
       : super._();
 
   @override
@@ -851,7 +883,7 @@ class _$_RealtimeCurrencySubscribeEvent
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _RealtimeCurrencySubscribeEvent &&
+            other is _SubscribeRealtimeCurrencyEvent &&
             const DeepCollectionEquality()
                 .equals(other.currencyName, currencyName));
   }
@@ -862,9 +894,9 @@ class _$_RealtimeCurrencySubscribeEvent
 
   @JsonKey(ignore: true)
   @override
-  _$RealtimeCurrencySubscribeEventCopyWith<_RealtimeCurrencySubscribeEvent>
-      get copyWith => __$RealtimeCurrencySubscribeEventCopyWithImpl<
-          _RealtimeCurrencySubscribeEvent>(this, _$identity);
+  _$SubscribeRealtimeCurrencyEventCopyWith<_SubscribeRealtimeCurrencyEvent>
+      get copyWith => __$SubscribeRealtimeCurrencyEventCopyWithImpl<
+          _SubscribeRealtimeCurrencyEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -897,7 +929,7 @@ class _$_RealtimeCurrencySubscribeEvent
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RealtimeCurrencySubscribeEvent value) subscribe,
+    required TResult Function(_SubscribeRealtimeCurrencyEvent value) subscribe,
   }) {
     return subscribe(this);
   }
@@ -905,7 +937,7 @@ class _$_RealtimeCurrencySubscribeEvent
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_RealtimeCurrencySubscribeEvent value)? subscribe,
+    TResult Function(_SubscribeRealtimeCurrencyEvent value)? subscribe,
   }) {
     return subscribe?.call(this);
   }
@@ -913,7 +945,7 @@ class _$_RealtimeCurrencySubscribeEvent
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RealtimeCurrencySubscribeEvent value)? subscribe,
+    TResult Function(_SubscribeRealtimeCurrencyEvent value)? subscribe,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -923,15 +955,15 @@ class _$_RealtimeCurrencySubscribeEvent
   }
 }
 
-abstract class _RealtimeCurrencySubscribeEvent extends RealtimeCurrencyEvent {
-  const factory _RealtimeCurrencySubscribeEvent(
-      {required String currencyName}) = _$_RealtimeCurrencySubscribeEvent;
-  const _RealtimeCurrencySubscribeEvent._() : super._();
+abstract class _SubscribeRealtimeCurrencyEvent extends RealtimeCurrencyEvent {
+  const factory _SubscribeRealtimeCurrencyEvent(
+      {required String currencyName}) = _$_SubscribeRealtimeCurrencyEvent;
+  const _SubscribeRealtimeCurrencyEvent._() : super._();
 
   @override
   String get currencyName;
   @override
   @JsonKey(ignore: true)
-  _$RealtimeCurrencySubscribeEventCopyWith<_RealtimeCurrencySubscribeEvent>
+  _$SubscribeRealtimeCurrencyEventCopyWith<_SubscribeRealtimeCurrencyEvent>
       get copyWith => throw _privateConstructorUsedError;
 }

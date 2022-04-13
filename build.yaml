@@ -28,3 +28,5 @@ targets:
         generate_for:
           include:
             - lib/**
+      retrofit:
+        enabled: true

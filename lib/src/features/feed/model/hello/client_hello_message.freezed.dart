@@ -28,7 +28,7 @@ class _$ClientHelloMessageTearOff {
       @JsonKey(name: 'subscribe_filter_asset_id')
           required List<String> subscribeFilterAssetId,
       @JsonKey(name: 'apikey')
-          String apiKey = 'C61848AC-4716-4042-B869-58197CD670C3',
+          String apiKey = '010F31F2-AFDF-4BC8-8864-AA698C30E761',
       bool heartbeat = false,
       String type = 'hello'}) {
     return _ClientHelloMessage(
@@ -194,7 +194,7 @@ class _$_ClientHelloMessage extends _ClientHelloMessage {
       @JsonKey(name: 'subscribe_filter_asset_id')
           required this.subscribeFilterAssetId,
       @JsonKey(name: 'apikey')
-          this.apiKey = 'C61848AC-4716-4042-B869-58197CD670C3',
+          this.apiKey = '010F31F2-AFDF-4BC8-8864-AA698C30E761',
       this.heartbeat = false,
       this.type = 'hello'})
       : super._();

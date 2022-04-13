@@ -17,7 +17,7 @@ _$_ClientHelloMessage _$$_ClientHelloMessageFromJson(
               .map((e) => e as String)
               .toList(),
       apiKey:
-          json['apikey'] as String? ?? 'C61848AC-4716-4042-B869-58197CD670C3',
+          json['apikey'] as String? ?? '010F31F2-AFDF-4BC8-8864-AA698C30E761',
       heartbeat: json['heartbeat'] as bool? ?? false,
       type: json['type'] as String? ?? 'hello',
     );

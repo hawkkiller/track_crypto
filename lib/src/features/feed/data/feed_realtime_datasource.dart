@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:recruitment_task/src/features/feed/model/hello/client_hello_message.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -8,19 +7,17 @@ abstract class IFeedWebsocketsDatasource {
   const IFeedWebsocketsDatasource();
 
   Stream<Object> hello(ClientHelloMessage msg);
-
-  abstract final WebSocketChannel _channel;
 }
 
 class FeedWebsocketsDatasource implements IFeedWebsocketsDatasource {
   FeedWebsocketsDatasource() : _channel = _connect() {
     _stream = _channel.stream.asBroadcastStream().cast();
+    _stream.listen(
+      (event) {},
+    );
   }
 
-  @override
-  final WebSocketChannel _channel;
-
-  Stream<Object> get stream => _stream;
+  WebSocketChannel _channel;
 
   late final Stream<Object> _stream;
 
