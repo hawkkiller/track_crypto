@@ -30,17 +30,17 @@ class _FeedScreenState extends State<FeedScreen> {
                 'X-CoinAPI-Key': apiKey,
               },
             ),
-          ),
-          // if needed add inteceptors
-          // ..interceptors.add(
-          //   LogInterceptor(
-          //     request: true,
-          //     requestBody: true,
-          //     requestHeader: true,
-          //     responseBody: true,
-          //     responseHeader: true,
-          //   ),
-          // ),
+          )
+            // if needed add inteceptors
+            ..interceptors.add(
+              LogInterceptor(
+                request: true,
+                requestBody: true,
+                requestHeader: true,
+                responseBody: true,
+                responseHeader: true,
+              ),
+            ),
         ),
         websocketsDatasource: FeedWebsocketsDatasource(),
       ),
