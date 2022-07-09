@@ -31,15 +31,18 @@ class FeedRepository implements IFeedRepository {
   final IFeedChartsDatasource _feedChartsDatasource;
 
   @override
-  Stream<Currency> hello(ClientHelloMessage msg) => _websocketsDatasource
-      .hello(msg)
+  Stream<Currency> hello(ClientHelloMessage msg) async* {
+    await _websocketsDatasource.hello(msg);
+    yield* _websocketsDatasource
+      .stream
       .map<Currency>(
         (event) => Currency.fromJson(
           jsonDecode(event.toString()) as Map<String, dynamic>,
         ),
       )
-      .timeout(const Duration(seconds: 5))
+        .timeout(const Duration(seconds: 5))
       .throttle(const Duration(seconds: 1));
+  }
 
   @override
   Future<List<TimeSeries>> retrieveChartsData({
